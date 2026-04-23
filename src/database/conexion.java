@@ -14,9 +14,9 @@ public class conexion {
     private final String PASSWORD = "";
     
     public Connection cadena;
+    public static conexion instancia;
     
-    
-    public conexion (){
+    private conexion (){
         this.cadena = null;
     }
     
@@ -35,5 +35,12 @@ public class conexion {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+    }
+    
+    public static conexion getInstancia(){
+        if(instancia == null){
+            instancia=new conexion();
+        }
+        return instancia;
     }
 }
