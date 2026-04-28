@@ -13,10 +13,12 @@ public class CategoriaControl {
     private final CategoriaDAO DATOS;
     private Categoria obj;
     private DefaultTableModel modeloTabla;
+    public int registroMostrados;
     
     public CategoriaControl(){
         this.DATOS= new CategoriaDAO();
         this.obj= new Categoria();
+        this.registroMostrados = 0;
     }
     
     public DefaultTableModel listar(String texto){
@@ -28,6 +30,7 @@ public class CategoriaControl {
         
         String estado;
         String[] registro = new String[4];
+        this.registroMostrados= 0;
         
         for(Categoria item:lista){
             if (item.isActivo()){
@@ -39,7 +42,8 @@ public class CategoriaControl {
             registro[1] = item.getNombre();
             registro[2] = item.getDescripcion();
             registro[3] = estado;
-            this.modeloTabla.addRow(registro);    
+            this.modeloTabla.addRow(registro);  
+            this.registroMostrados= this.registroMostrados + 1;
         }
         return this.modeloTabla;
     }
@@ -101,5 +105,10 @@ public class CategoriaControl {
     }
     
     public int total(){
+        return DATOS.total();
+    }
+    
+    public int totalMostrados(){
+        return this.registroMostrados;
     }
 }
