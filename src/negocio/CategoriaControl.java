@@ -59,12 +59,45 @@ public class CategoriaControl {
     }
     
     public String actualizar (int id, String nombre, String nombreAnt, String descripcion){
+        if(nombre.equals(nombreAnt)){
+            obj.setId(id);
+            obj.setNombre(nombre);
+            obj.setDescripcion(descripcion);
+            if(DATOS.actualizar(obj)){
+                return "OK";
+            }else{
+                return "Error en la actualizacion";
+            }
+        }else{
+            if(DATOS.existe(nombre)){
+                return "El registro ya existe";  
+            }else{
+                obj.setId(id);
+                obj.setNombre(nombre);
+                obj.setDescripcion(descripcion);
+                if(DATOS.actualizar(obj)){
+                    return"OK";
+                }else{
+                    return"Error en la actualizacion";
+                }
+            }
+        }
     }
     
     public String desactivar(int id){
+        if(DATOS.desactivar(id)){
+            return"OK";
+        }else{
+            return "No se puede desactivar el registro";
+        }
     }
     
     public String activar(int id){
+        if(DATOS.activar(id)){
+            return"OK";
+        }else{
+            return"No se puede activar el registro";
+        }
     }
     
     public int total(){
